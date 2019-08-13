@@ -22,6 +22,7 @@ public enum SeasonEnum {
   }
   public static void main(String[] args) {
     System.out.println(SeasonEnum.FALL.getName());
+    System.out.println(SeasonEnum.SPRING.getName());
   }
 }
 
