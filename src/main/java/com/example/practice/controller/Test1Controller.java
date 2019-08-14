@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Test1Controller {
 //静态变量赋值用set方法
-//非静态变量赋值直接用此变量即可
+//非静态变量赋值直接用此变量即可，放在变量上或者set方法上都可以
 //    @Value("${name}")
-    private static String name;
+    private  String name;
     private static int outTime;
     @RequestMapping("/test1")
-    public static void execute(){
+    public void execute(){
         System.out.println(name);
         System.out.println(outTime);
     }

@@ -4,7 +4,8 @@ public class Dog {
     private int count = 0;
 
     public static void main(String[] args) {
-        new Thread(new MyRunnable()).start();
+        MyRunnable m = new MyRunnable();
+        new Thread(m).start();
         new Thread(new MyRunnable()).start();
     }
 }
