@@ -1,4 +1,4 @@
-package com.example.practice.FileInputOutputPackage;
+package com.example.practice.File;
 
 import java.io.*;
 

@@ -7,19 +7,25 @@ import java.util.concurrent.*;
  * 但是分开每次提交一个线程，那么各个线程之间不会阻塞，分别执行各自的代码，去获取返回值。
  * 因为每次提交一个线程时，是由主线程去执行的，即main方法执行的，所以不分顺序，全部去执行，但是for循环里边不可以，
  * 从0-4分别取执行，0去获取返回值的时候，后边的代码先不执行，阻塞
+ *.. 花费的时间成倍增加
  */
 public class MyCallableTest1 {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        ExecutorService pool = Executors.newFixedThreadPool(4);
-/*
-        for(int i=0;i<4;i++){
+        ExecutorService pool = Executors.newFixedThreadPool(3);
+        long begin = System.currentTimeMillis();
+        for(int i=0;i<3;i++){
             Future future1 = pool.submit(new MyCallable());
             Object time = future1.get();
             System.out.println(i+":"+time);
             System.out.println(i+"abc");
             System.out.println(i+"mmdsak");
         }
-*/
+        pool.shutdown();
+        long end = System.currentTimeMillis();
+        System.out.println("costtime:"+(end-begin));
+
+/*
+        long begin = System.currentTimeMillis();
         Future future2 = pool.submit(new MyCallable());
         Future future3 = pool.submit(new MyCallable());
         Future future4 = pool.submit(new MyCallable());
@@ -27,6 +33,9 @@ public class MyCallableTest1 {
         System.out.println("2:"+future2.get());
         System.out.println("3:"+future3.get());
         System.out.println("4:"+future4.get());
+        long end = System.currentTimeMillis();
+        System.out.println("costtime:"+(end-begin));
+*/
 
     }
 }
