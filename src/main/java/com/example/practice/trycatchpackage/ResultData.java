@@ -13,7 +13,12 @@ public class ResultData<T> {
     private boolean status;
     private Long ts;
     private T data;
-//3个参数
+
+    //添加无参构造方法，否则报错在反序列化的时候
+    public ResultData() {
+    }
+
+    //3个参数
     public ResultData(String msg, String rtncode, boolean status) {
         this.msg = msg;
         this.rtncode = rtncode;

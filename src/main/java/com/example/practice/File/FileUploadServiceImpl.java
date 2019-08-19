@@ -117,7 +117,7 @@ public class FileUploadServiceImpl implements FileUploadService {
         httpResponse = httpClient.execute(httpPost);
         HttpEntity resEntity = httpResponse.getEntity();
         if (resEntity != null) {
-            content = resEntity.toString();
+            content = EntityUtils.toString(resEntity);
             return content;
         }
         return content;
