@@ -41,7 +41,8 @@ public class This {
         String c = "i am c";
 //        System.out.println(a);
         System.out.println(b == null);//false,因为b指向了一个对象，所以不等于null
-        System.out.println(c);
+        System.out.println(c == null);
+
 /*
         This t = new This("a",3);
         System.out.println(t.name);

@@ -1,4 +1,4 @@
-package com.example.practice.basicknowledge;
+package com.example.practice.constructor;
 
 /**
  * 1.构造方法用来初始化类的一个新对象，并且为实例变量赋予合适的初始值，所以构造方法不需要返回类型
