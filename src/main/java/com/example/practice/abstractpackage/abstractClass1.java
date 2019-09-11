@@ -10,18 +10,20 @@ package com.example.practice.abstractpackage;
  * 抽象类和抽象方法必须用abstract声明
  * 5.抽象类和普通父类区别（都是把共有的代码放在父类里边）：
  * 抽象类一定是父类，父类不一定是抽象类
+ * 6.抽象类中的抽象方法修饰符不能是private,其他都可以，
+ *   接口中的抽象方法修饰符不能是private,protected,其他都可以。
  */
 //实例化的概念：在堆中创建一块空间，A a = new A(),来存放A对象的属性即成员变量，用a指向这个地址。
 //抽象类不能被实例化，但是又存在构造器是因为构造器是在子类实例化的时候调用，
-//    抽象类只在分配了在栈中的引用，没有分配堆中的内存。程序都有一个代码段,再内存中需要占据一定的内存,而抽象类没有具体的实现方法,无法具体的给它分配内存空间,所以为了安全,不JAVA不允许抽象类,接口直接实例化
+// 抽象类只在分配了在栈中的引用，没有分配堆中的内存。程序都有一个代码段,再内存中需要占据一定的内存,而抽象类没有具体的实现方法,无法具体的给它分配内存空间,所以为了安全,不JAVA不允许抽象类,接口直接实例化
 // 接口不能被实例化，因为包含常量抽象方法，常量是存在静态区的，所以实例化接口的话，没有可以存储的值，只是浪费空间而已，所以没必要实例化它。
 //
 public abstract class abstractClass1 {
     private static final int age=1;
-    public abstractClass1() {
+    protected abstractClass1() {
     }
 
-    public abstract void say();
+    abstract void say();//可以公有，protected,默认，不能private
     public abstract String say1();
     String say2(){
         return "this is abstract say2";
@@ -59,11 +61,12 @@ public abstract class abstractClass1 {
     static final int a=1;
     int b = 2;//可以不用写static final
 //     private int c=3;//接口中不允许私有成员,因为外界无法访问，本来一般情况是外界要访问私有的话，可以通过new本类的对象来访问，但是接口不能new 对象，所以就不能用private
-     void say3();
+    void say3();//可以public,默认修饰符,不可以private,protected
     public void say4();//也可以不用写abstract
 }
 class Test2 implements A{
 
+    static int b = 8;
     public static void main(String[] args) {
         A a = new Test2();
         System.out.println(A.b+""+Test2.b);

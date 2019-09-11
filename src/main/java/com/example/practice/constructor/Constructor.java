@@ -10,7 +10,7 @@ package com.example.practice.constructor;
  * 3.构造方法不能被继承，不能重写，因为构造方法的作用是创建对象并对变量初始化，如果重写了之后，
  * 创建父类的对象就会有影响。
  * 4.子类构造方法中第一行是super(),因为子类继承了父类的成员变量，在使用前必须给其初始化，所以就调用super
- * 5.构造方法不能私有的，否则其他类不能调用，protected,public默认,都可以调用
+ * 5.构造方法不能私有的，否则其他类不能调用，protected,public默认,都可以调用,其实也可以private,不过就不能被别人通过new对象调用了
  * 6.构造方法可以是默认修饰符，即什么都不写Constructor(String name, int age) {}
  */
 public  class Constructor {
@@ -18,7 +18,7 @@ public  class Constructor {
     private int age;
     public static String grop;
 
-     Constructor(String name, int age) {
+    Constructor(String name, int age) {
         this.name = name;
         this.age = age;
     }

@@ -43,6 +43,7 @@ public class This1 {
 
     public This1(String name, int age) {
 //        this();//此处不能调用this,不能每个构造方法都写this,否则就会递归调用，形成无限循环
+//        this.A();
         this.name = name;
         this.age = age;
     }
@@ -64,9 +65,9 @@ public class This1 {
 
     public static void main(String[] args) {
         This1 this1 = new This1();//This1{name='null', age=0}
-        This1 this11 = new This1("bb",8);//This1{name='bb', age=8}
+//        This1 this11 = new This1("bb",8);//This1{name='bb', age=8}
         System.out.println(this1);
-        System.out.println(this11);
+//        System.out.println(this11);
     }
 }
 class ThisSon extends This1{
