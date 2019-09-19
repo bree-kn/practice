@@ -1,19 +1,18 @@
 package com.example.practice.comparabel;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-/**
+/**1.基本类型的值存在list中，直接sort即可以排序，自定义类型的对象存在list中，需要用compareTo来比较实现Comparable...,然后sort即可以排序。
  * Collections.sort(list);
+ * int型的用this.age-o.age即升序，其他类型的用this.name.compareTo(o.name),尤其是BigDecimal.
  */
 public class compareTest1 implements Comparable<compareTest1> {
     private Integer age;
     private Double price;
     private BigDecimal money;
     private String rate;
+    private String name;
     private String orderByName;
     @Override
     public int compareTo(compareTest1 o) {
@@ -38,14 +37,19 @@ public class compareTest1 implements Comparable<compareTest1> {
            flag = thisa.compareTo(oa);
            return flag;
        }
+        if("name".equalsIgnoreCase(orderByName)){
+            flag =this.name.compareTo(o.name);
+            return flag;
+        }
        return flag;
     }
 
-    public compareTest1(Integer age, Double price, BigDecimal money, String rate, String orderByName) {
+    public compareTest1(Integer age, Double price, BigDecimal money, String rate, String name, String orderByName) {
         this.age = age;
         this.price = price;
         this.money = money;
         this.rate = rate;
+        this.name = name;
         this.orderByName = orderByName;
     }
 
@@ -81,6 +85,14 @@ public class compareTest1 implements Comparable<compareTest1> {
         this.rate = rate;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getOrderByName() {
         return orderByName;
     }
@@ -96,20 +108,34 @@ public class compareTest1 implements Comparable<compareTest1> {
                 ", price=" + price +
                 ", money=" + money +
                 ", rate='" + rate + '\'' +
+                ", name='" + name + '\'' +
                 ", orderByName='" + orderByName + '\'' +
                 '}';
     }
 
     public static void main(String[] args) {
-        String orderByName = "rate";
+        String orderByName = "name";
         List<compareTest1> list = new ArrayList<compareTest1>();
-        list.add(new compareTest1(1,11.2,new BigDecimal(43.2),"22.2%",orderByName));
-        list.add(new compareTest1(6,1.2,new BigDecimal(1.2),"99.22%",orderByName));
-        list.add(new compareTest1(88,44.2,new BigDecimal(44.2),"44.2%",orderByName));
-        list.add(new compareTest1(33,11.7,new BigDecimal(11.7),"32.2%",orderByName));
-        list.add(new compareTest1(2,11.3,new BigDecimal(43.2),"22.6%",orderByName));
-        list.add(new compareTest1(66,99.2,new BigDecimal(99.2),"2.2%",orderByName));
-        list.add(new compareTest1(7,33.2,new BigDecimal(43.2),"92.2%",orderByName));
+        list.add(new compareTest1(1,11.2,new BigDecimal(43.2),"22.2%","bree",orderByName));
+        list.add(new compareTest1(6,1.2,new BigDecimal(1.2),"99.22%","st",orderByName));
+        list.add(new compareTest1(88,44.2,new BigDecimal(44.2),"44.2%","ad",orderByName));
+        list.add(new compareTest1(33,11.7,new BigDecimal(11.7),"32.2%","md",orderByName));
+        list.add(new compareTest1(2,11.3,new BigDecimal(43.2),"22.6%","sa",orderByName));
+        list.add(new compareTest1(66,99.2,new BigDecimal(99.2),"2.2%","kd",orderByName));
+        list.add(new compareTest1(7,33.2,new BigDecimal(43.2),"92.2%","o",orderByName));
+        Collections.sort(list);
+        System.out.println(list);
+    }
+}
+class Test1{
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<>();
+        Random random = new Random();
+        for(int i=0;i<10;i++){
+            list.add(random.nextInt(100));
+        }
+//        System.out.println(random.nextInt());//random.nextInt()无边界，random.nextInt(n)即0->n
+        System.out.println(list);
         Collections.sort(list);
         System.out.println(list);
     }

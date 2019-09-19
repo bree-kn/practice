@@ -7,12 +7,15 @@ import java.util.Scanner;
  * finally里边如果有return,则直接退出了，不在执行任何代码
  */
 public class TryCatch {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         TryCatch tryCatch = new TryCatch();
         tryCatch.input();
     }
 
-    public void input() {
+    public void input() throws Exception {
+        if(true){
+            throw  new Exception("aa");
+        }
         Scanner scan = new Scanner(System.in);
         try {
 //            System.out.println("请输入");

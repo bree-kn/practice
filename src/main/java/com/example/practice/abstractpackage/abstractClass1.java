@@ -12,6 +12,7 @@ package com.example.practice.abstractpackage;
  * 抽象类一定是父类，父类不一定是抽象类
  * 6.抽象类中的抽象方法修饰符不能是private,其他都可以，
  *   接口中的抽象方法修饰符不能是private,protected,其他都可以。
+ *   接口中的常量修饰符不能是private,protected,其他都可以。
  */
 //实例化的概念：在堆中创建一块空间，A a = new A(),来存放A对象的属性即成员变量，用a指向这个地址。
 //抽象类不能被实例化，但是又存在构造器是因为构造器是在子类实例化的时候调用，

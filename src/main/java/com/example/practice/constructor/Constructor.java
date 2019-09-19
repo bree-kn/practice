@@ -1,5 +1,8 @@
 package com.example.practice.constructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 1.构造方法用来初始化类的一个新对象，并且为实例变量赋予合适的初始值，所以构造方法不需要返回类型
  * Constructor c = new Constructor();
@@ -8,7 +11,8 @@ package com.example.practice.constructor;
  * 如果没有重写这个toString方法时，那么c.toString会返回一个com.example.practice.basicknowledge.Constructor@72ea2f77
  * 所以需要重写
  * 3.构造方法不能被继承，不能重写，因为构造方法的作用是创建对象并对变量初始化，如果重写了之后，
- * 创建父类的对象就会有影响。
+ * --创建父类的对象就会有影响,即初始化不了了。
+ * --若能继承，则在子类里边就是子类的构造方法了，之前可以写成son = new son()，现在就写成son = new Father(),显然是不对的。
  * 4.子类构造方法中第一行是super(),因为子类继承了父类的成员变量，在使用前必须给其初始化，所以就调用super
  * 5.构造方法不能私有的，否则其他类不能调用，protected,public默认,都可以调用,其实也可以private,不过就不能被别人通过new对象调用了
  * 6.构造方法可以是默认修饰符，即什么都不写Constructor(String name, int age) {}
@@ -17,7 +21,7 @@ public  class Constructor {
     private String name;
     private int age;
     public static String grop;
-
+    float f = 1.2f;//如果是小数，必须加f,如果是整数，可以不用加。
     Constructor(String name, int age) {
         this.name = name;
         this.age = age;
@@ -84,12 +88,54 @@ class C{
     private int b;
 
     public static int getA() {
+        int b;
+//        System.out.println(b);//局部变量必须赋初值。
         return a;
     }
 
     public static void main(String[] args) {
         Constructor c1 = new Constructor("mm",3);
         System.out.println(c1.getAge());
-        System.out.println(getA());
+        System.out.println(getA());//成员变量可以不用赋初值，默认为0或null，局部变量必须赋初值，否则报错。
+    }
+}
+
+class Test6 {
+    static void print(List list){
+       list.add(2);
+       list.add(9);
+       list = new ArrayList();
+       list.add(3);
+    }
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        print(list);
+        System.out.println(list);
+    }
+}
+
+class Test4{
+    int age;
+
+//    public Test4(int age) {
+//        this.age = age;
+//    }
+
+    public void say1(){
+        System.out.println("i am test4 say1父类");
+    }
+}
+class Test5 extends Test4{
+
+    @Override
+    public void say1() {
+//        super.say1();
+        System.out.println("i am test5 say1子类");
+    }
+
+    public static void main(String[] args) {
+        Test4 t = new Test4();
+        t.say1();
     }
 }

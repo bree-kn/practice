@@ -1,7 +1,4 @@
 package com.example.practice.basicknowledge;
-
-import org.springframework.util.StringUtils;
-
 /**
  * 1.this()只能在构造方法的第一行，不能在普通方法中
  * 2.new一个对象
@@ -42,6 +39,7 @@ public class This {
 //        System.out.println(a);
         System.out.println(b == null);//false,因为b指向了一个对象，所以不等于null
         System.out.println(c == null);
+
 
 /*
         This t = new This("a",3);

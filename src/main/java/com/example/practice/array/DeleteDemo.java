@@ -1,15 +1,39 @@
 package com.example.practice.array;
 
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
- * Math.random()-> 0-1
+ * 1.Math.random()-> 0-1
  * Random.nextInt(n)-> 0-n
+ * 2.Arrays.toString(arr)可以直接输出数组的内容，平时arr.tostring()只会输出地址，所以sout(Arrays.toString(arr))即可不用写for循环来遍历数组了。
  */
 public class DeleteDemo {
     public static void main(String[] args) {
+//        Random random = new Random();
+//        List<Integer> list = new ArrayList<>();
+//        for(int i=0;i<10;i++){
+//            list.add(random.nextInt(100));
+//        }
+//        System.out.println(list.toString());
+        int[] arr = new int[10];
+        Random random = new Random();
+        for(int i=0;i<arr.length;i++){
+            arr[i] = random.nextInt(100);
+        }
+        for(int i=0;i<arr.length;i++){
+            System.out.print(arr[i]+"\t");
+        }
+        System.out.println();
+        Arrays.sort(arr);
+        System.out.println(Arrays.toString(arr));
+//        for(int i=0;i<arr.length;i++){
+//            System.out.print(arr[i]+"\t");
+//        }
+
+
+
+
+/*
         Scanner scan = new Scanner(System.in);
         final int N = 10;
         int[] arr = new int[N];
@@ -30,6 +54,7 @@ public class DeleteDemo {
         System.out.println("please input delete num");
         int num = scan.nextInt();
 
+*/
 /* 顺序查找
         int deleteIndex = -1;
         for(int i=0;i<arr.length;i++){
@@ -47,7 +72,8 @@ public class DeleteDemo {
             System.out.println("find it,need delete it");
         }
         System.out.println(num);
-*/
+*//*
+
 //下边是二分查找的代码
         int deleteIndex = -1;
         int low = 0;
@@ -79,6 +105,7 @@ public class DeleteDemo {
             System.out.print(arr[i]+"\t");
         }
 
+*/
 
     }
 }

@@ -10,21 +10,23 @@ import java.util.concurrent.*;
 @RestController
 public class SecondController {
 
-    public static GetValue getValue=null;
+    public static GetValue getValue = null;
+
     @RequestMapping("execute")
-    public String execute(String[] args) throws ExecutionException, InterruptedException {
-/*
-        ExecutorService pool = Executors.newFixedThreadPool(2);
+    public void execute(String[] args) throws ExecutionException, InterruptedException {
+/*        ExecutorService pool = Executors.newFixedThreadPool(2);
         Future future = pool.submit(new MyCallable1());
         System.out.println(future.get());
         return (Long) future.get();
 */
+/*
         GetValue getValue = new GetValue();
         ExecutorService pool = Executors.newFixedThreadPool(2);
         pool.execute(new MyRunnable2());
         Thread.sleep(8000);
         pool.shutdown();
         return getValue.toString();
+*/
  /*       ExecutorService pool = Executors.newFixedThreadPool(2);
         System.out.println("提交任务前的时间："+getDate());
         Future future = pool.submit(new MyCallable1());
@@ -53,6 +55,7 @@ public class SecondController {
             myThread1.start();
         }
 */
+//      多个线程异步执行
 /*
         MyThread1 myThread1 = new MyThread1();
         myThread1.setName("aa");
@@ -78,59 +81,93 @@ public class SecondController {
         Thread t2 = new Thread(myRunnable,"cc");
         t1.start();
         t2.start();
-*/
+*/      //3个线程同时执行一个任务时即myRunnable3,如果不加锁synchronized,则程序结果会杂乱无章。
+        MyRunnable3 myRunnable3 = new MyRunnable3();
+        Thread thread1 = new Thread(myRunnable3, "aa");
+        Thread thread2 = new Thread(myRunnable3, "bb");
+        Thread thread3 = new Thread(myRunnable3, "cc");
+        thread1.start();
+        thread2.start();
+        thread3.start();
     }
-    public static String getDate(){
+
+    public static String getDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         String currentTime = sdf.format(new Date());
         return currentTime;
     }
 }
-class MyRunnable implements Runnable{
-    private int count=12;
+
+class MyRunnable implements Runnable {
+    private int count = 100;
+
     @Override
-    public void run(){
+    public void run() {
         long startTime = System.currentTimeMillis();
-        while(count-->0){
-            System.out.println(Thread.currentThread().getName()+"----"+count);
+        while (count-- > 0) {
+            System.out.println(Thread.currentThread().getName() + "----" + count);
         }
-        long costTime = System.currentTimeMillis()-startTime;
-        SecondController.getValue.updateTime(costTime);
+        long costTime = System.currentTimeMillis() - startTime;
+        System.out.println(costTime);
+//        SecondController.getValue.updateTime(costTime);
     }
 }
 
-class MyRunnable2 implements Runnable{
+class MyRunnable3 implements Runnable {
+    private int tickets = 100;
 
     @Override
-    public void run(){
+    public void run() {
+//卖票
+        while (tickets > 0) {
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            synchronized (this) {
+                if(tickets>0){
+                    System.out.println(Thread.currentThread().getName() + "--" + tickets--);
+                }
+            }
+        }
+    }
+}
+
+class MyRunnable2 implements Runnable {
+
+    @Override
+    public void run() {
         long startTime = System.currentTimeMillis();
-        System.out.println(Thread.currentThread().getName()+"----");
+        System.out.println(Thread.currentThread().getName() + "----");
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        long costTime = System.currentTimeMillis()-startTime;
+        long costTime = System.currentTimeMillis() - startTime;
         SecondController.getValue.updateTime(costTime);
     }
 }
 
-class MyThread1 extends Thread{
+class MyThread1 extends Thread {
     private int count1 = 100;
+
     @Override
-    public void run(){
-        while(count1-->0){
-            System.out.println(Thread.currentThread().getName()+"----"+count1);
+    public void run() {
+        while (count1-- > 0) {
+            System.out.println(Thread.currentThread().getName() + "----" + count1);
         }
     }
 }
 
-class MyCallable1 implements Callable{
+class MyCallable1 implements Callable {
     @Override
     public Long call() throws InterruptedException {
         long startTime = System.currentTimeMillis();
         Thread.sleep(1000);
-        long costTime = System.currentTimeMillis()-startTime;
+        long costTime = System.currentTimeMillis() - startTime;
         return costTime;
     }
 }

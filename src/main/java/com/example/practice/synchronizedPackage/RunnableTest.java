@@ -13,14 +13,14 @@ import java.util.concurrent.Executors;
 public class RunnableTest implements Runnable {
     private static boolean flag = true;
 
-    /*静态方法和synchronized(class)一样，都等待
+//  静态方法和synchronized(class)一样，都等待
+/*
         private static synchronized void test1() throws InterruptedException {
             System.out.println(Thread.currentThread().getName() + " start");
             Thread.sleep(1000);
             System.out.println(Thread.currentThread().getName() + " end");
         }
-    */
-/*
+*/
     public void test1() throws InterruptedException {
         synchronized (RunnableTest.class) {
             System.out.println(Thread.currentThread().getName()+" start");
@@ -28,7 +28,6 @@ public class RunnableTest implements Runnable {
             System.out.println(Thread.currentThread().getName()+" end");
         }
     }
-*/
 /*同synchronized (this)一样的结果
     public synchronized void test1() throws InterruptedException {
         System.out.println(Thread.currentThread().getName() + " start");
@@ -46,6 +45,7 @@ public class RunnableTest implements Runnable {
      *相同的实例，2个线程则等待，一个执行完了，另外一个再执行
      * @throws InterruptedException
      */
+/*
     public void test1() throws InterruptedException {
         synchronized (this) {
             System.out.println(Thread.currentThread().getName() + " start");
@@ -53,6 +53,7 @@ public class RunnableTest implements Runnable {
             System.out.println(Thread.currentThread().getName() + " end");
         }
     }
+*/
 
 
     @Override
