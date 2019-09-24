@@ -5,10 +5,10 @@ import lombok.Data;
 import lombok.ToString;
 
 @Data
-@ToString
 @AllArgsConstructor
-public class User {
+public class emp {
     private int id;
-    private String username;
-    private String password;
+    private String name;
+    private String deptId;
+    private double salary;
 }

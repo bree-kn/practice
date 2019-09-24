@@ -1,5 +1,15 @@
 package com.example.practice.jdbcTemplate;
 
+import com.example.practice.trycatchpackage.ResultData;
+
+import java.io.FileNotFoundException;
+
 public interface JdbcService {
-    void add(User user);
+    ResultData add(User user);
+    ResultData update(int id,String password) throws FileNotFoundException;
+    ResultData delete(int id);
+    ResultData selectValue(int id);
+    ResultData select(int id);
+    ResultData selectAll();
+    ResultData selectMap(int id);
 }
