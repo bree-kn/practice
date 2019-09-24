@@ -1,6 +1,7 @@
 package com.example.practice.jdbcTemplate;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -14,4 +15,5 @@ public interface UserDao {
     User select(int id);
     List<User> selectAll();
     Map selectMap(int id);
+    List<Integer> batchInsert() throws Exception;
 }

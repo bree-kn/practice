@@ -3,6 +3,7 @@ package com.example.practice.jdbcTemplate;
 import com.example.practice.trycatchpackage.ResultData;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 
 public interface JdbcService {
     ResultData add(User user);
@@ -12,4 +13,5 @@ public interface JdbcService {
     ResultData select(int id);
     ResultData selectAll();
     ResultData selectMap(int id);
+    ResultData batchInsert();
 }

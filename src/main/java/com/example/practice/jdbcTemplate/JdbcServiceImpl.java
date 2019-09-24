@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -94,6 +95,18 @@ public class JdbcServiceImpl implements JdbcService {
     public ResultData selectMap(int id) {
         Map map = userDao.selectMap(id);
         return new ResultData(ErrorEnum.REQUEST_SUCCESS,map);
+    }
+
+    @Override
+    public ResultData batchInsert(){
+        List<Integer> list = null;
+        try {
+            list = userDao.batchInsert();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultData(ErrorEnum.REQUEST_FAIL,"报错了");
+        }
+        return new ResultData(ErrorEnum.REQUEST_SUCCESS,list);
     }
 
 }

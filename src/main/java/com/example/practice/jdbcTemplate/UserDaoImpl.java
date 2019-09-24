@@ -1,5 +1,6 @@
 package com.example.practice.jdbcTemplate;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -7,11 +8,13 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +29,8 @@ public class UserDaoImpl implements UserDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    protected static final Logger log = Logger.getLogger(UserDaoImpl.class);
 
     @Override
     public int add(User user) {
@@ -44,7 +49,7 @@ public class UserDaoImpl implements UserDao {
                 return ps;
             }
         };
-        jdbcTemplate.update(psc,keyHolder);
+        jdbcTemplate.update(psc, keyHolder);
         idv = Integer.parseInt(keyHolder.getKey().toString());
         return idv;
     }
@@ -53,14 +58,14 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> findById(int id) {
         String sql = "select * from user where id=?";
-        List<User> list = jdbcTemplate.query(sql,new MyRowMapper(),id);
+        List<User> list = jdbcTemplate.query(sql, new MyRowMapper(), id);
         return list;
     }
 
     @Override
     public int updateUser(int id, String password) {
         String sql = "update user set password=? where id=?";
-        return jdbcTemplate.update(sql,password,id);
+        return jdbcTemplate.update(sql, password, id);
     }
 
     @Override
@@ -68,27 +73,27 @@ public class UserDaoImpl implements UserDao {
         String sql = "update emp set salary=? where id=?";
 //        File file = new File("c://d");
 //        FileOutputStream fos = new FileOutputStream(file);
-        return jdbcTemplate.update(sql,salary,id);
+        return jdbcTemplate.update(sql, salary, id);
     }
 
     @Override
     public int delete(int id) {
         String sql = "delete from user where id=?";
-        return jdbcTemplate.update(sql,id);
+        return jdbcTemplate.update(sql, id);
     }
 
     @Override
     public int selectValue(int id) {
         String sql = "select count(1) from user where id=?";
         //如果是一个数组参数，则用queryForObject(sql,int[] arr,Integer.class),如果是一个参数，则（sql,Integer.class,id）
-        return jdbcTemplate.queryForObject(sql,Integer.class,id);
+        return jdbcTemplate.queryForObject(sql, Integer.class, id);
     }
 
     @Override
     public User select(int id) {
         String sql = "select * from user where id=?";
         //查询返回一个对象用queryForObject(sql,new MyRowMapper(),id)
-        return jdbcTemplate.queryForObject(sql,new MyRowMapper(),id);
+        return jdbcTemplate.queryForObject(sql, new MyRowMapper(), id);
     }
 
     @Override
@@ -101,19 +106,50 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Map selectMap(int id) {
         String sql = "select username,password from user where id=?";
-        Map map = jdbcTemplate.queryForMap(sql,id);
+        Map map = jdbcTemplate.queryForMap(sql, id);
         return map;
+    }
+
+    @Override
+    public List<Integer> batchInsert() throws Exception {
+        List<User> listUser = new ArrayList<>();
+        listUser.add(new User(8, "aa", "cc"));
+        listUser.add(new User(9, "bb", "cc"));
+        listUser.add(new User(10, "ca", "cc"));
+        listUser.add(new User(11, "da", "cc"));
+
+        String sql = "insert into User(username,password) values(?,?)";
+        List<Integer> list = new ArrayList<>();
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?serverTimezone=GMT&user=root&password=123");
+        PreparedStatement ps = null;
+        conn.setAutoCommit(false);//将自动提交关闭
+        ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        for (User user : listUser) {
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.addBatch();
+        }
+        ps.executeBatch();//批量插入
+        conn.commit();
+        ResultSet rs = ps.getGeneratedKeys();
+        while (rs.next()) {
+            list.add(rs.getInt(1));
+        }
+        conn.close();
+        ps.close();
+        rs.close();
+        return list;
     }
 }
 
-class MyRowMapper implements RowMapper<User>{
+class MyRowMapper implements RowMapper<User> {
 
     @Override
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
         String username = resultSet.getString("username");
         String password = resultSet.getString("password");
         int id = resultSet.getInt("id");
-        User user = new User(id,username,password);
+        User user = new User(id, username, password);
         return user;
     }
 }

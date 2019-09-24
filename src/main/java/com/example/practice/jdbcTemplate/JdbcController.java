@@ -18,6 +18,16 @@ import java.io.FileNotFoundException;
  * 查询返回一个对象：User user = jdbcTemplate.queryForObject(sql,new MyRowMapper(),id);
  * 查询返回一个集合：List<User> list = jdbcTemplate.query(sql,new MyRowMapper(),id);
  *                或者： List list = jdbcTemplate.queryForList(sql);
+ *  批量插入并且返回插入的id：executeBatch->
+ *  步骤：1.listUser.add(new User(11, "da", "cc"));将几个对象添加到集合里边
+ *        2.ps = conn.preparestatement(sql,Statement.RETURN_GENERATED_KEYS)
+ *        3.for(User user : listUser){
+ *            ps.setString(1,user.getUserName());
+ *            ps.setString(2,user.getPassword());
+ *            ps.addBatch();
+ *        }
+ *        ps.executeBatch();
+ *
  */
 @RestController
 public class JdbcController {
@@ -73,6 +83,13 @@ public class JdbcController {
     @RequestMapping("/selectMap/{id}")
     public ResultData selectMap(@PathVariable int id){
         ResultData resultData = jdbcService.selectMap(id);
+        return resultData;
+    }
+
+    //批量插入
+    @RequestMapping("/batchInsert")
+    public ResultData batchInsert(){
+        ResultData resultData = jdbcService.batchInsert();
         return resultData;
     }
 }
