@@ -23,7 +23,7 @@ import java.util.Date;
 public class Aop1 {
     private static final Logger log = LoggerFactory.getLogger(Aop1.class);
 
-    @Pointcut("execution(* com.example.practice.*.*(..))")
+    @Pointcut("execution(* com.example.practice.*.*.*(..))")//需要写具体包下的类的方法
     public void print(){
 
     }

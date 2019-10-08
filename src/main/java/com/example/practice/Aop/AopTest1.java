@@ -1,4 +1,4 @@
-package com.example.practice;
+package com.example.practice.Aop;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
