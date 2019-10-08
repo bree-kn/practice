@@ -3,18 +3,23 @@ package com.example.practice.array;
 import java.util.*;
 
 /**
- * 1.Math.random()-> 0-1
+ * 1.Math.random()-> 0-1之间的小数
  * Random.nextInt(n)-> 0-n
+ * Random random = new Random(100)，按照random.nextInt(200)这个值
  * 2.Arrays.toString(arr)可以直接输出数组的内容，平时arr.tostring()只会输出地址，所以sout(Arrays.toString(arr))即可不用写for循环来遍历数组了。
+ *
  */
 public class DeleteDemo {
     public static void main(String[] args) {
+        Random random = new Random(100);
+        System.out.println(random.nextInt(200));//小于200的数
 //        Random random = new Random();
 //        List<Integer> list = new ArrayList<>();
 //        for(int i=0;i<10;i++){
 //            list.add(random.nextInt(100));
 //        }
 //        System.out.println(list.toString());
+/*
         int[] arr = new int[10];
         Random random = new Random();
         for(int i=0;i<arr.length;i++){
@@ -26,6 +31,7 @@ public class DeleteDemo {
         System.out.println();
         Arrays.sort(arr);
         System.out.println(Arrays.toString(arr));
+*/
 //        for(int i=0;i<arr.length;i++){
 //            System.out.print(arr[i]+"\t");
 //        }
