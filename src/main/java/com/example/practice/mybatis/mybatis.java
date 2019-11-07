@@ -70,8 +70,11 @@ package com.example.practice.mybatis;
  *  count(*)包括了所有的列，相当于行数，在统计结果的时候，不会忽略列值为NULL
  *  count(1)包括了忽略所有列，用1代表代码行，在统计结果的时候，不会忽略列值为NULL
  *  count(列名)只包括列名那一列，在统计结果的时候，会忽略列值为空（这里的空不是只空字符串或者0，而是表示null）的计数，即某个字段值为NULL时，不统计。
- *
- *
+ *  10.获取刚才插入的key
+ *     @Insert("insert into t_agent(agent_name,province_name,is_delete,create_id,create_time,merchant_id,status,contact_name,update_id,update_time) values(#{agentName},#{provinceName},#{isDelete},#{createId},#{createTime},#{merchantId},#{status},#{contactName},#{createId},#{createTime})")
+ *     @SelectKey(before = false, keyProperty = "id", resultType = Long.class, statement = { "select id from t_agent where agent_name = #{agentName}" })
+ *     boolean insertAgent(AgentDTO agentdto);
+ *      用@SelectKey注解即可查出刚才插入的key，select last_insert_id()适合主键自增的，非自增的可以用上边的代码
  *
  *
  *
