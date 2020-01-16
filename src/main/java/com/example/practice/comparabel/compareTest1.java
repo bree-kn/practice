@@ -129,6 +129,7 @@ public class compareTest1 implements Comparable<compareTest1> {
 }
 class Test1{
     public static void main(String[] args) {
+/*
         List<Integer> list = new ArrayList<>();
         Random random = new Random();
         for(int i=0;i<10;i++){
@@ -138,5 +139,12 @@ class Test1{
         System.out.println(list);
         Collections.sort(list);
         System.out.println(list);
+*/
+        String data = "2020.34567";
+        BigDecimal b = new BigDecimal(data);
+        b = b.setScale(2,BigDecimal.ROUND_DOWN);
+        System.out.println(b);
     }
+
+
 }
