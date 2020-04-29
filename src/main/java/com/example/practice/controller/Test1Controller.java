@@ -13,6 +13,7 @@ public class Test1Controller {
     private static int outTime;
     @RequestMapping("/test1")
     public void execute(){
+        System.out.println("thread:"+Thread.currentThread().getName());;
         System.out.println(name);
         System.out.println(outTime);
     }

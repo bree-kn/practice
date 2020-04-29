@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.adobe.livecycle:adobe-livecycle-client:unknown">
+    <CLASSES>
+      <root url="jar://D:/practicerepo/com/adobe/livecycle/adobe-livecycle-client/unknown/adobe-livecycle-client-unknown.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/practicerepo/com/adobe/livecycle/adobe-livecycle-client/unknown/adobe-livecycle-client-unknown-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/practicerepo/com/adobe/livecycle/adobe-livecycle-client/unknown/adobe-livecycle-client-unknown-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

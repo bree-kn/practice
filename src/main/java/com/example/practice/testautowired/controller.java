@@ -1,8 +1,11 @@
 package com.example.practice.testautowired;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 /**
@@ -30,7 +33,8 @@ public class controller {
     //不唯一，则报
     private ServiceResource serviceA;
 
-    @Autowired(required = false)
+    @Autowired                 //如果不指定名称则不用@Qualifier来指定，只需要写@Autowired,@Service即可，按类型匹配
+    @Qualifier("autowireaa")//如果要指定名称则用@Qualifier来指定，然后在那个service的上面写@Service(value="autowireaa")
     private ServiceAutowire serviceAutowire;
 
     @RequestMapping("testResource")
@@ -43,5 +47,10 @@ public class controller {
     public String testautowire(){
         String auto = serviceAutowire.testautowire();
         return auto;
+    }
+
+    @PostConstruct
+    public void init(){
+        System.out.println("i am postconstruct");
     }
 }

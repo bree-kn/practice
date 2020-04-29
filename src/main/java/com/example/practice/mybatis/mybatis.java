@@ -88,5 +88,11 @@ public class mybatis {
         for(String aa : arr){
             System.out.println(aa);
         }
+        try {
+            throw new Exception("this is test aa");
+        } catch (Exception e) {
+            System.out.println("aa");
+//            e.printStackTrace();
+        }
     }
 }

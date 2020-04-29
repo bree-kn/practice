@@ -62,6 +62,7 @@ class MyCallable implements Callable{
         for(int i=0;i<=100;i++){
             sum += i;
         }
+        System.out.println("name is:"+Thread.currentThread().getName());
         Thread.sleep(10000);
         long endtime = System.currentTimeMillis();
         return endtime-begintime;
